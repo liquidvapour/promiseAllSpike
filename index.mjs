@@ -1,28 +1,4 @@
-const setTimeoutAsync = (handler, timeout, ...args) =>
-  new Promise((resolve, reject) => {
-    setTimeout(
-      (...internalArgs) => {
-        try {
-          resolve(handler(...internalArgs));
-        } catch (err) {
-          reject(err);
-        }
-      },
-      timeout,
-      ...args
-    );
-  });
-
-const waitAsync = (timeout) =>
-  new Promise((resolve, reject) => {
-    setTimeout(() => {
-      try {
-        resolve();
-      } catch (err) {
-        reject(err);
-      }
-    }, timeout);
-  });
+import { waitAsync, setTimeoutAsync } from './asyncTools.mjs';
 
 const doThing = async (input) => {
   const timeout = Math.round(Math.random() * 50);
@@ -53,9 +29,7 @@ try {
     () => {
       throw new Error("BAD!");
     },
-    10,
-    2,
-    4
+    10
   );
 } catch (err) {
   console.error(err);
